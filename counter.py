@@ -165,9 +165,9 @@ class Counter:
             confirm = self.read(self.getCmdWriteMode());
 
 en = Counter('/dev/ttyU0');
-print en.get()
-# en.mode('w')
-# print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
-# print "Напряжение = " + str(en.cmd('VOLTA()'));
-# print "Ток = " + str(en.cmd('CURRE()'));
-# print "Мощность = " + str(en.cmd('POWEP()'));
+# print en.get()
+en.mode('w')
+print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
+print "Напряжение = " + str(en.cmd('VOLTA()'));
+print "Ток = " + str(en.cmd('CURRE()'));
+print "Мощность = " + str(en.cmd('POWEP()'));
