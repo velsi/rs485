@@ -46,7 +46,7 @@ class Counter:
     debug = False;
 
     # Init flag
-    init = False;
+    _init = '';
 
     def __init__(self, port, debug = False, boud = 9600):
         self.port = port;
@@ -105,7 +105,7 @@ class Counter:
     def init(self):
         init = self.read(self._CMD_INIT + self._EOL);
         if (init):
-            self.init = True;
+            self._init = True;
             self.brand = init[1:4];
             self.Z = int(init[4]);
 
@@ -113,16 +113,19 @@ class Counter:
             if (self.ser.baudrate != self._BOUD[self.Z]):
                 self.__init__( self.port, self._BOUD[self.Z]);
         else:
-            self.init = False;
+            self._init = False;
 
     # Get value of some counters
     def get(self):
-        confirm = self.read(self.getCmdReadMode()); # init read mode
-        confirm = self.read(self.getCmdQuickReadMode()); # quick read
+        res1 = self.read(self.getCmdReadMode()); # init read mode
+        self.init();
+
+        res2 = self.read(self.getCmdQuickReadMode()); # quick read
+        return res1 + res2;
 
     # Reading form serial port
     def read(self, cmd):
-        if not self.init:
+        if (not self._init and self._init != ''):
             self.init();
         if self.port_status:
             values = [];
@@ -162,9 +165,9 @@ class Counter:
             confirm = self.read(self.getCmdWriteMode());
 
 en = Counter('/dev/ttyU0');
-# en.get()
-en.mode('w')
-print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
-print "Напряжение = " + str(en.cmd('VOLTA()'));
-print "Ток = " + str(en.cmd('CURRE()'));
-print "Мощность = " + str(en.cmd('POWEP()'));
+print en.get()
+# en.mode('w')
+# print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
+# print "Напряжение = " + str(en.cmd('VOLTA()'));
+# print "Ток = " + str(en.cmd('CURRE()'));
+# print "Мощность = " + str(en.cmd('POWEP()'));
