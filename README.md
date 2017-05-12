@@ -1,6 +1,6 @@
 # rs485
 
-Чтение в режиме команд<br>
+<strong>Чтение в режиме команд</strong><br>
 en = Counter('/dev/ttyU0');<br>
 en.mode('w')<br>
 print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));<br>
@@ -12,7 +12,8 @@ T1, T2 = ['634.41', '243.94']<br>
 Напряжение = ['229.72']<br>
 Ток = ['1.451']<br>
 Мощность = ['0.333696']<br>
-
+<br>
+<br>
 <strong>Быстрое чтение</strong><br>
 en = Counter('/dev/ttyU0');<br>
 print en.get()<br>
