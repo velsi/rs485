@@ -6,17 +6,17 @@
 
     en = Counter('/dev/ttyU0');
     en.mode('w')
-    print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
-    print "Напряжение = " + str(en.cmd('VOLTA()'));
-    print "Ток = " + str(en.cmd('CURRE()'));
-    print "Мощность = " + str(en.cmd('POWEP()'));
+    print 'T1 = {0[0]} Квт/ч\r\nT2 = {0[1]} Квт/ч'.format(en.cmd('ET0PE(2,2)'));
+    print "Напряжение = {:.2f} В".format(en.cmd('VOLTA()'));
+    print "Ток = {:.2f} A".format(en.cmd('CURRE()'));
+    print "Мощность = {:.2f} КВт".format(en.cmd('POWEP()') * 1000);
 
-T1, T2 = ['634.41', '243.94']<br>
-Напряжение = ['229.72']<br>
-Ток = ['1.451']<br>
-Мощность = ['0.333696']<br>
-<br>
-<br>
+T1 = 636.6 Квт/ч<br>
+T2 = 246.45 Квт/ч<br>
+Напряжение = 231.90 В<br>
+Ток = 1.24 A<br>
+Мощность = 285.82 КВт<br>
+
 
 Быстрое чтение
 --------

@@ -157,7 +157,10 @@ class Counter:
 
     # Parse value from answer (xx.xx)
     def getValue(self, answer):
-        return re.findall('(\d+.\d+)',answer);
+        value = map(float, re.findall('(\d+.\d+)',answer));
+        if len(value) == 1:
+            value = value[0];
+        return value
 
     # Switch mode
     def mode(self, mode):
@@ -167,7 +170,7 @@ class Counter:
 en = Counter('/dev/ttyU0');
 # print en.get()
 en.mode('w')
-print "T1, T2 = " + str(en.cmd('ET0PE(2,2)'));
-print "Напряжение = " + str(en.cmd('VOLTA()'));
-print "Ток = " + str(en.cmd('CURRE()'));
-print "Мощность = " + str(en.cmd('POWEP()'));
+print 'T1 = {0[0]} Квт/ч\r\nT2 = {0[1]} Квт/ч'.format(en.cmd('ET0PE(2,2)'));
+print "Напряжение = {:.2f} В".format(en.cmd('VOLTA()'));
+print "Ток = {:.2f} A".format(en.cmd('CURRE()'));
+print "Мощность = {:.2f} КВт".format(en.cmd('POWEP()') * 1000);
