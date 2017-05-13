@@ -167,7 +167,7 @@ class Counter:
         if (mode == 'w'):
             confirm = self.read(self.getCmdWriteMode());
 
-en = Counter('/dev/ttyU0');
+en = Counter('/dev/ttyU0', False);
 # print en.get()
 en.mode('w')
 print 'T1 = {0[0]} Квт/ч\r\nT2 = {0[1]} Квт/ч'.format(en.cmd('ET0PE(2,2)'));
